@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <title>QR code reader</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <link href="/uploads/db2c352d1331699eaa25a1de6da3744d.png" rel="shortcut icon" />
+
+    <link href="/assets/css/bootstrap.min.css" id="css_theme_style" rel="stylesheet" media="screen,print">
+    <link href="/assets/css/custom.css" rel="stylesheet" media="screen,print">
+
+</head>
+
+<body class=" bg-white " data-theme-style="light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom border-gray-200 mb-6">
+        <div class="container">
+            <a href="/" class="navbar-brand" data-logo data-light-value="/uploads/a95b71c31ccf0ecab46069e3eeaff18a.png" data-light-class="img-fluid navbar-logo" data-light-tag="img" data-dark-value="/uploads/b8acbbf213b89199c9972e9a3b7370d1.png"
+                data-dark-class="img-fluid navbar-logo" data-dark-tag="img">
+                            <img src="/uploads/a95b71c31ccf0ecab46069e3eeaff18a.png" class="img-fluid navbar-logo" alt="Website Logo" />
+                    </a>
+
+            <button class="btn navbar-custom-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#main_navbar" aria-controls="main_navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-fw fa-bars"></i>
+        </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="main_navbar">
+                <ul class="navbar-nav">
+
+
+                    <li class="nav-item"><a class="nav-link" href="#"> Pricing</a></li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" href="#">
+                            <i class="fas fa-sign-in-alt fa-fw fa-sm mr-2"></i>
+                            Sign in                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" href="#">
+                                <i class="fas fa-user-plus fa-fw fa-sm mr-2"></i>
+                                Sign up                            </a>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <main class="altum-animate altum-animate-fill-none altum-animate-fade-in">
+
+        <div class="container text-center">
+
+            <h1 class="index-header mb-2">QR code reader</h1>
+            <p class="index-subheader mb-5">Read already existing QR codes from image files.</p>
+        </div>
+
+        <div class="container mt-5">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form action="" method="post" role="form" enctype="multipart/form-data">
+                        <input type="hidden" name="token" value="6fe83d32b6b02e7171361493bac9435b" />
+
+                        <div class="form-group" data-file-image-input-wrapper data-file-input-wrapper-size-limit="10" data-file-input-wrapper-size-limit-error="The uploaded file is too big, the maximum file size you are allowed to upload is 10 MB.">
+                            <label for="image"><i class="fas fa-fw fa-qrcode fa-sm text-muted mr-1"></i> Image</label>
+
+                            <div class="row">
+                                <div class="col">
+                                    <input id="image" type="file" name="image" accept=".png, .jpg, .jpeg, .svg, .webp" class="form-control-file altum-file-input" />
+                                </div>
+
+                                <div id="image_preview" class="col-3 d-none">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <a href="#" target="_blank" data-toggle="tooltip" title="View" data-tooltip-hide-on-click>
+                <img src="" class="altum-file-input-preview rounded d-none" loading="lazy" />
+            </a>
+                                    </div>
+                                </div>
+
+                                <div id="image_remove_wrapper" class="col-12 d-none">
+                                    <div class="custom-control custom-checkbox my-2">
+                                        <input id="image_remove" name="image_remove" type="checkbox" class="custom-control-input">
+                                        <label class="custom-control-label" for="image_remove">
+                <span class="text-muted">Delete uploaded file</span>
+            </label>
+                                    </div>
+                                </div>
+
+                                <div id="image_remove_selected_file_wrapper" class="col-12 d-none">
+                                    <label href="#" role="button" id="image_remove_selected_file" type="button" class="my-2 text-muted text-decoration-none">
+            <i class="fas fa-fw fa-sm fa-trash-alt mr-1"></i> Remove selected file        </label>
+                                </div>
+                            </div>
+                            <small class="form-text text-muted">.png, .jpg, .jpeg, .svg, .webp allowed. 10 MB maximum.</small>
+                        </div>
+
+                        <!-- <button id="start_scanner" type="button" class="btn btn-sm btn-block btn-light d-none"><i class="fas fa-fw fa-sm fa-camera mr-1"></i> Start camera scanning</button> -->
+                    </form>
+                </div>
+            </div>
+
+            <div class="card mb-4 d-none" id="scanner_wrapper">
+                <div class="card-body">
+
+                    <div id="scanner"></div>
+
+                    <div id="scanner_cameras" class="mt-3"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <label for="result"><i class="fas fa-fw fa-bars fa-sm text-muted mr-1"></i> Data/Output</label>
+                            <div>
+                                <button type="button" class="btn btn-link text-secondary" data-toggle="tooltip" title="Copy to clipboard" aria-label="Copy to clipboard" data-copy="Copy to clipboard" data-copied="Copied!" data-clipboard-target="#result" data-clipboard-text>
+                            <i class="fas fa-fw fa-sm fa-copy"></i>
+                        </button>
+                            </div>
+                        </div>
+                        <textarea id="result" class="form-control"></textarea>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <div class="card">
+                    <div class="card-body">
+                       <strong> Welcome to QR Decoder!</strong><br>
+Dive into the digital age with our advanced QR code decoder. Whether you're using your device's camera or uploading an image, our intuitive tool swiftly deciphers QR codes, unveiling their hidden messages. From website links and contact details to special offers and event information, discover what lies behind every QR code with ease. Experience convenience, speed, and accuracy, making every scan an exciting journey of discovery. Scan now and decode the world around you! </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="container d-print-none">
+        <footer class="app-footer">
+
+            <div class="d-flex flex-column flex-lg-row justify-content-between mb-3">
+                <div class="mb-3 mb-lg-0">
+                    <a class="h5 footer-heading" href="/" data-logo data-light-value="/uploads/a95b71c31ccf0ecab46069e3eeaff18a.png" data-light-class="mb-2 footer-logo" data-light-tag="img" data-dark-value="/uploads/main/b8acbbf213b89199c9972e9a3b7370d1.png"
+                        data-dark-class="mb-2 footer-logo" data-dark-tag="img">
+                            <img src="/uploads/a95b71c31ccf0ecab46069e3eeaff18a.png" class="mb-2 footer-logo" alt="Website Logo" />
+                    </a>
+                    <div class="text-muted">Copyright &copy; 2024 Amit Sah.</div>
+                </div>
+
+                <div class="d-flex flex-column flex-lg-row">
+
+
+                    <div class="mb-2 ml-lg-3">
+                        <button type="button" id="switch_theme_style" class="btn btn-link text-decoration-none p-0" data-toggle="tooltip" title="Switch to Dark Mode" data-title-theme-style-light="Switch to Light Mode" data-title-theme-style-dark="Switch to Dark Mode">
+                    <span data-theme-style="light" class=""><i class="fas fa-fw fa-sm fa-sun text-warning"></i></span>
+                    <span data-theme-style="dark" class="d-none"><i class="fas fa-fw fa-sm fa-moon"></i></span>
+                </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-lg mb-3 mb-lg-0">
+                    <ul class="list-style-none d-flex flex-column flex-lg-row flex-wrap m-0">
+                        <li class="mb-2 mr-lg-3"><a href="#">Blog</a></li>
+
+
+                        <li class="mb-2 mr-lg-3"><a href="#">Contact</a></li>
+
+
+
+                        <li class="mb-2 mr-lg-3"><a href="#" target="_blank">About Us</a></li>
+                        <li class="mb-2 mr-lg-3"><a href="#" target="_self">Contact Us</a></li>
+                        <li class="mb-2 mr-lg-3"><a href="#" target="_self">Privacy policy</a></li>
+                        <li class="mb-2 mr-lg-3"><a href="#" target="_blank">Terms and Conditions</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="col-12 col-lg-auto">
+                    <div class="d-flex flex-wrap">
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+
+    <!-- <input type="hidden" name="global_site_url" value="https://wifiqrcodedecoder.com" />
+    <input type="hidden" name="global_url" value="https://wifiqrcodedecoder.com" />
+    <input type="hidden" name="global_token" value="3b53d8e81ab60396b51a638aa8956a01" />
+    <input type="hidden" name="global_number_decimal_point" value="." />
+    <input type="hidden" name="global_number_thousands_separator" value="," /> -->
+
+    <script>
+        /* Some global variables */
+        window.altum = {};
+        let global_token = document.querySelector('input[name="global_token"]').value;
+        let site_url = document.querySelector('input[name="global_site_url"]').value;
+        let url = document.querySelector('input[name="global_url"]').value;
+        let decimal_point = document.querySelector('[name="global_number_decimal_point"]').value;
+        let thousands_separator = document.querySelector('[name="global_number_thousands_separator"]').value;
+    </script>
+
+    <script src="/assets/js/libraries/jquery.slim.min.js"></script>
+    <script src="/assets/js/libraries/popper.min.js"></script>
+    <script src="/assets/js/libraries/bootstrap.min.js"></script>
+    <script src="/assets/js/custom.js"></script>
+    <script src="/assets/js/libraries/fontawesome.min.js"></script>
+    <script src="/assets/js/libraries/fontawesome-solid.min.js"></script>
+    <script src="/assets/js/libraries/fontawesome-brands.modified.js"></script>
+
+    <script src="/assets/js/libraries/html5-qrcode.min.js"></script>
+
+    <script>
+        'use strict';
+
+        /* Local scanner with file uploading */
+        const local_scanner = new Html5Qrcode('image', {
+            formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE]
+        });
+
+        const image = document.getElementById('image');
+        image.addEventListener('change', event => {
+            const file = image.files[0];
+
+            if (!file) {
+                return;
+            }
+
+            local_scanner.scanFile(file, true)
+                .then(decoded_text => {
+                    document.querySelector('#result').value = decoded_text;
+                })
+                .catch(err => {
+                    document.querySelector('#result').value = "No data available..";
+                });
+        });
+
+        /* Video scanner with camera */
+        if (navigator.mediaDevices && typeof navigator.mediaDevices.getUserMedia === 'function') {
+            /* Enable start camera button */
+            document.querySelector('#start_scanner').classList.remove('d-none');
+
+            const video_scanner = new Html5Qrcode('scanner', {
+                formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE]
+            });
+
+            document.querySelector('#start_scanner').addEventListener('click', async event => {
+                let cameras = [];
+                let selected_camera_id = null;
+
+                try {
+                    cameras = await Html5Qrcode.getCameras();
+                } catch (error) {
+                    alert("No camera devices available.");
+                }
+
+                if (cameras.length) {
+                    /* Disable start camera button */
+                    document.querySelector('#start_scanner').classList.add('d-none');
+
+                    /* Display the scanner wrapper */
+                    document.querySelector('#scanner_wrapper').classList.remove('d-none');
+
+                    /* Add stop button */
+                    cameras.unshift({
+                        'id': 'false',
+                        'label': "Stop camera"
+                    });
+
+                    /* Create the buttons for the scanner */
+                    cameras.forEach(camera => {
+                        let button = document.createElement('button');
+                        button.classList.add('btn');
+                        button.classList.add('btn-sm');
+                        button.classList.add('btn-block');
+                        button.classList.add('btn-light');
+                        button.innerText = camera.label;
+                        button.setAttribute('data-camera-id', camera.id);
+                        button.addEventListener('click', async () => {
+                            await choose_camera(camera.id);
+                        })
+
+                        document.querySelector('#scanner_cameras').appendChild(button);
+                    });
+
+                    let choose_camera = async camera_id => {
+                        if (camera_id == selected_camera_id) {
+                            return;
+                        }
+
+                        try {
+                            await video_scanner.stop();
+                        } catch (error) { /* :) */ }
+
+                        if (camera_id !== 'false') {
+                            await video_scanner.start(
+                                camera_id, {
+                                    fps: 10,
+                                    qrbox: {
+                                        width: 250,
+                                        height: 250
+                                    }
+                                },
+                                (decoded_text) => {
+                                    document.querySelector('#result').value = decoded_text;
+                                }
+                            );
+                        }
+
+                        /* Highlight the selected camera */
+                        document.querySelectorAll('[data-camera-id]').forEach(element => {
+                            if (element.getAttribute('data-camera-id') == camera_id) {
+                                element.classList.remove('btn-light');
+                                element.classList.add('btn-primary');
+                            } else {
+                                element.classList.remove('btn-primary');
+                                element.classList.add('btn-light');
+                            }
+                        });
+
+                        selected_camera_id = camera_id;
+                    }
+
+                    await choose_camera(cameras[1].id);
+                }
+            });
+        }
+    </script>
+    <script src="https://66qrcode.com/demo/themes/altum/assets/js/libraries/clipboard.min.js"></script>
+
+    <script>
+        'use strict';
+
+        let clipboard = new ClipboardJS('[data-clipboard-text]');
+
+        /* Copy full url handler */
+        $('[data-clipboard-text]').on('click', event => {
+            let copy = event.currentTarget.dataset.copy;
+            let copied = event.currentTarget.dataset.copied;
+
+            $(event.currentTarget).attr('data-original-title', copied).tooltip('show');
+
+            setTimeout(() => {
+                $(event.currentTarget).attr('data-original-title', copy);
+            }, 500);
+        });
+    </script>
+    <script>
+        document.querySelector('#switch_theme_style').addEventListener('click', event => {
+            let theme_style = document.querySelector('body[data-theme-style]').getAttribute('data-theme-style');
+            let new_theme_style = theme_style == 'light' ? 'dark' : 'light';
+
+            /* Set a cookie with the new theme style */
+            set_cookie('theme_style', new_theme_style, 30, "\/demo\/");
+
+            /* Change the css and button on the page */
+            let css = document.querySelector(`#css_theme_style`);
+
+            document.querySelector(`body[data-theme-style]`).setAttribute('data-theme-style', new_theme_style);
+
+            switch (new_theme_style) {
+                case 'dark':
+                    css.setAttribute('href', "https:\/\/66qrcode.com\/demo\/themes\/altum\/assets\/css\/bootstrap-dark.min.css?v=2300");
+                    document.body.classList.add('cc--darkmode');
+                    break;
+
+                case 'light':
+                    css.setAttribute('href', "https:\/\/66qrcode.com\/demo\/themes\/altum\/assets\/css\/bootstrap.min.css?v=2300");
+                    document.body.classList.remove('cc--darkmode');
+                    break;
+            }
+
+            /* Refresh the logo/title */
+            document.querySelectorAll('[data-logo]').forEach(element => {
+                let new_brand_value = element.getAttribute(`data-${new_theme_style}-value`);
+                let new_brand_class = element.getAttribute(`data-${new_theme_style}-class`);
+                let new_brand_tag = element.getAttribute(`data-${new_theme_style}-tag`)
+                let new_brand_html = new_brand_tag == 'img' ? `<img src="${new_brand_value}" class="${new_brand_class}" alt="Website Logo" />` : `<${new_brand_tag} class="${new_brand_class}">${new_brand_value}</${new_brand_tag}>`;
+                element.innerHTML = new_brand_html;
+            });
+
+
+            document.querySelector(`#switch_theme_style`).setAttribute('data-original-title', document.querySelector(`#switch_theme_style`).getAttribute(`data-title-theme-style-${theme_style}`));
+            document.querySelector(`#switch_theme_style [data-theme-style="${new_theme_style}"]`).classList.remove('d-none');
+            document.querySelector(`#switch_theme_style [data-theme-style="${theme_style}"]`).classList.add('d-none');
+            $(`#switch_theme_style`).tooltip('hide').tooltip('show');
+
+            event.preventDefault();
+        });
+    </script>
+</body>
+
+</html>
